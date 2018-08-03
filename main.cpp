@@ -39,7 +39,6 @@ struct arp getmac(struct arp s_arp){
     for (i = 0; i < 6; ++i){
     s_arp.src_mac[i]=(unsigned char)s.ifr_addr.sa_data[i];
     }
-    puts("\n");
     return s_arp;
 }
 
