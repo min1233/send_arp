@@ -83,8 +83,8 @@ int main(int argc, char* argv[]) {
   int res;
   unsigned char c_mac[6];
   unsigned char c_ip[4];
-  
-  packet = (const u_char *)malloc(200);
+ 
+  packet = (const u_char*) malloc(42); 
   s_arp.src_ip = (uint32_t*)malloc(40);
   s_arp.des_ip = (uint32_t*)malloc(40);
 
@@ -117,6 +117,7 @@ int main(int argc, char* argv[]) {
   inet_pton(AF_INET,argv[2],s_arp.src_ip);
   input_packet(packet,s_arp);
   pcap_sendpacket(handle,packet,42);
+  free(packet);
   free(s_arp.src_ip);
   free(s_arp.des_ip);
   pcap_close(handle);
