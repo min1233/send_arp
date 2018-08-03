@@ -110,14 +110,14 @@ int main(int argc, char* argv[]) {
 		continue;
 	}
   }
-
   s_arp.opcode=0x0200;
   memcpy(s_arp.des_mac,c_mac,6);
   memcpy(s_arp.des_mac2,c_mac,6);
   inet_pton(AF_INET,argv[2],s_arp.src_ip);
   input_packet(packet,s_arp);
   pcap_sendpacket(handle,packet,42);
-  free(packet);
+
+  free((void *)packet);
   free(s_arp.src_ip);
   free(s_arp.des_ip);
   pcap_close(handle);
