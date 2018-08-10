@@ -9,8 +9,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define ETH_HW_ADDR_LEN 6
-#define IP_ADDR_LEN     4
+#define ETH_HW_ADDR_LEN 0x06
+#define IP_ADDR_LEN     0x04
 #define ARP_FRAME_TYPE  0x0806
 #define ETHER_HW_TYPE   0x0001
 #define IP_PROTO_TYPE   0x0800
@@ -34,7 +34,6 @@ struct eth{
 	}
 
 };
-#pragma pack(1)
 struct arp{
 	uint16_t a_type;
 	uint16_t p_type;
@@ -58,7 +57,7 @@ struct eth_arp{
 	struct eth e;
 	struct arp a;
 };
-
+#pragma pack(8)
 void debug(struct eth_arp s_arp){
 	printf("eth des_mac : ");
 	for(int i=0;i<sizeof(s_arp.e.des_mac);i++)printf("%x",s_arp.e.des_mac[i]);
@@ -156,7 +155,6 @@ int main(int argc, char* argv[]) {
 		continue;
 	}
   }
-  printf("123");
   s_arp.a.opcode=0x0200;
   memcpy(s_arp.e.des_mac,c_mac,6);
   memcpy(s_arp.a.target_mac,c_mac,6);
